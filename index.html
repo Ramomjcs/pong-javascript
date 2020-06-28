@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio PTA 2 - Ramom</title>
+    <style>
+        canvas {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background-color: black;
+            margin-top: -300px;
+            margin-left: -300px;
+        }
+    </style>
+</head>
+<body>
+    <canvas height="600" width="600" id="mycanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("mycanvas"); // não precisar reescrever o getElement
+        var ctx = canvas.getContext("2d"); // tudo que eu desenhar será em 2D
+        
+        // ctx.fillStyle="white"; // tudo que for desenhado na minha canvas, terá a cor branca
+        // ctx.fillRect(0, 0, 50, 50); // desenhando na coordenada x=0 e y=0 um quadrado de 50x50 px (Ele será branco)
+
+        var teclas = {}; // criando um objeto teclas
+        
+        var bola = {
+            // coordenadas da bola
+            x: canvas.width / 2 - 15, // posicionando a bola no meio
+            y: canvas.height / 2 - 15,
+            altura: 30,
+            largura: 30,
+            dirx: -1, // a bola vai começar indo para a esquerda
+            diry: 1, // a bola via começar indo pra baixo
+            mod: 0, // aqui utilizo para aumentar a velocidade da bola(vou multiplicar) a medida que a bola bata nos bloquinhos. Isso para dificultar o game
+            speed: 50 // velocidade da bola
+        };
+
+        // blocos da esquerda e direita
+        var esquerda = {
+            x: 10, // colocando uma margem de 10px 
+            y: canvas.height / 2 - 60, // posicionando o bloco no centro da lateral. Os 60 é pq a altura do bloco é 120, daí tiro metade pra posicionar no centro
+            altura: 120,
+            largura: 30,
+            score: 0, // placar
+            speed: 15
+        };
+
+        var direita = {
+            x: 560, // a canva tem 600px e quero uma margem de 10px na direita + largura de 30px de largura do bloco, então fica 560
+            y: canvas.height / 2 - 60, 
+            altura: 120,
+            largura: 30,
+            score: 0, 
+            speed: 15
+        };
+
+
+        function desenha() {
+            ctx.fillStyle = "white";
+            ctx.fillRect(esquerda.x, esquerda.y, esquerda.largura, esquerda.altura);
+            ctx.fillRect(direita.x, direita.y, direita.largura, direita.altura);
+            ctx.fillRect(bola.x, bola.y, bola.largura, bola.altura);
+        }
+
+        desenha();
+    </script>
+</body>
+</html>
