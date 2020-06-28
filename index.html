@@ -24,7 +24,7 @@
         // ctx.fillStyle="white"; // tudo que for desenhado na minha canvas, terá a cor branca
         // ctx.fillRect(0, 0, 50, 50); // desenhando na coordenada x=0 e y=0 um quadrado de 50x50 px (Ele será branco)
 
-        var teclas = {}; // criando um objeto teclas
+        var teclas = {}; 
         
         var bola = {
             // coordenadas da bola
@@ -57,15 +57,56 @@
             speed: 15
         };
 
+        // identificar se o usuário digitou alguma tecla - Edgar mostrou
+        document.addEventListener("keydown", function(e) {
+            teclas[e.keyCode] = true; // coloca em teclas um valor booleano true. Por default, vão começar como false
+            //alert(e.keyCode); // descobrindo qual a numeração da tecla
+        }, false);
+
+        // identificar quando o usuário soltar a tecla
+        document.addEventListener("keyup", function(e){
+            delete teclas[e.keyCode]; // tira de teclas a tecla
+        }, false);
+
+        // Função de MOVIMENTAÇÃO 
+        function movebloco () {
+            if(87 in teclas && esquerda.y > 0) { // identificando a tecla 'w' e tratando para ele não ultrapassar o limite do canvas
+                esquerda.y -= esquerda.speed;
+            }
+            if(83 in teclas && esquerda.y + esquerda.altura < canvas.height){
+                esquerda.y += esquerda.speed;
+            }
+            if(38 in teclas && direita.y > 0) { // identificando a tecla 'w' e tratando para ele não ultrapassar o limite do canvas
+                direita.y -= direita.speed;
+            }
+            if(40 in teclas && direita.y + direita.altura < canvas.height){
+                direita.y += direita.speed;
+            }
+        };
 
         function desenha() {
+
+            //limpando a canvas completamente para poder atualizar as posições
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            movebloco();
+
             ctx.fillStyle = "white";
             ctx.fillRect(esquerda.x, esquerda.y, esquerda.largura, esquerda.altura);
             ctx.fillRect(direita.x, direita.y, direita.largura, direita.altura);
             ctx.fillRect(bola.x, bola.y, bola.largura, bola.altura);
+
+            // colocando o display de score dos players
+            ctx.font = "20px Roboto";
+            ctx.fillText("Player 1: " + esquerda.score, 50, 20);
+            ctx.fillText("Player 2: " + direita.score, canvas.width - 150, 20);
         }
 
-        desenha();
+        // fazendo um loop constante na função desenha
+
+        //setTimeout(desenha, 10);
+        setInterval(desenha, 20);
+        //desenha();
     </script>
 </body>
 </html>
