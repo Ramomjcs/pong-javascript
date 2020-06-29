@@ -9,15 +9,20 @@
             position: absolute;
             left: 50%;
             top: 50%;
-            background-color: black;
+            background: #FFFFFF url("https://caipirafurioso.com.br/wp-content/uploads/2017/10/games-background-1.jpg") no-repeat right top fixed;
             margin-top: -300px;
             margin-left: -300px;
         }
+         body {
+            margin-right: 1800px;
+        } 
         
     </style>
 </head>
 <body>
+    
     <canvas height="600" width="600" id="mycanvas"></canvas>
+    
     <script>
         var canvas = document.getElementById("mycanvas"); // não precisar reescrever o getElement
         var ctx = canvas.getContext("2d"); // tudo que eu desenhar será em 2D
